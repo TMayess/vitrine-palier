@@ -2,6 +2,70 @@ import DiveCurve from '../components/DiveCurve'
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.palier.app'
 
+const FEATURES = [
+  {
+    title: 'Enregistrement complet',
+    description: 'Site, profondeur, durée, température, visibilité, équipier — tout ce qui compte après la remontée.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Courbe de profil',
+    description: 'Visualisez chaque plongée sous forme de courbe de profondeur — comme sur un vrai ordinateur de plongée.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Statistiques personnelles',
+    description: "Nombre de plongées, profondeur maximale, temps total sous l'eau. Votre progression en un coup d'œil.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+      </svg>
+    ),
+  },
+  {
+    title: '100% Offline',
+    description: "Pas de connexion ? Aucun problème. Palier fonctionne en local grâce à Isar, et se synchronise quand vous revenez à la surface.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+      </svg>
+    ),
+  },
+]
+
+const STATS = [
+  { value: '∞', label: 'Plongées enregistrables' },
+  { value: '100%', label: 'Offline-first' },
+  { value: '0€', label: 'Abonnement requis' },
+]
+
+const SCREENS = [
+  {
+    label: 'Mes plongées',
+    accent: 'linear-gradient(180deg, rgba(0,212,255,0.08) 0%, rgba(0,212,255,0.02) 100%)',
+  },
+  {
+    label: 'Profil de plongée',
+    accent: 'linear-gradient(180deg, rgba(0,212,255,0.15) 0%, rgba(13,27,42,0.5) 100%)',
+  },
+  {
+    label: 'Statistiques',
+    accent: 'linear-gradient(180deg, rgba(255,107,107,0.08) 0%, rgba(0,212,255,0.05) 100%)',
+  },
+  {
+    label: 'Nouvelle plongée',
+    accent: 'linear-gradient(180deg, rgba(245,240,232,0.04) 0%, rgba(0,212,255,0.06) 100%)',
+  },
+]
+
 function PlayStoreBadge({ variant = 'dark' }) {
   const bg = variant === 'dark' ? 'bg-black' : 'bg-white'
   const text = variant === 'dark' ? 'text-white' : 'text-black'
@@ -122,6 +186,98 @@ export default function Home() {
         {/* DiveCurve at bottom */}
         <div className="absolute bottom-0 left-0 right-0" aria-hidden="true">
           <DiveCurve />
+        </div>
+      </section>
+
+      {/* ── FEATURES ── */}
+      <section className="bg-[#0A1520] py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="font-display italic text-4xl md:text-5xl text-palier-ivory text-center mb-4">
+            Tout ce qu'il faut pour un vrai logbook.
+          </h2>
+          <p className="text-palier-muted text-center mb-16 max-w-xl mx-auto">
+            Conçu pour le terrain. Fonctionnel même à 40 mètres de profondeur de réseau.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {FEATURES.map(f => (
+              <div
+                key={f.title}
+                className="flex flex-col gap-4 p-6 rounded-2xl border border-palier-cyan/10 bg-palier-navy hover:border-palier-cyan/30 transition-colors"
+              >
+                <div className="w-10 h-10 text-palier-cyan" aria-hidden="true">
+                  {f.icon}
+                </div>
+                <h3 className="text-palier-ivory font-medium text-base">{f.title}</h3>
+                <p className="text-palier-muted text-sm leading-relaxed">{f.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATS ── */}
+      <section className="py-20 bg-palier-navy">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+            {STATS.map(s => (
+              <div key={s.value} className="flex flex-col gap-2">
+                <span className="font-body text-5xl font-semibold text-palier-cyan tabular-nums">
+                  {s.value}
+                </span>
+                <span className="text-palier-muted text-sm">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SCREENSHOTS ── */}
+      <section className="py-24 bg-[#0A1520] overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="font-display italic text-4xl md:text-5xl text-palier-ivory text-center mb-4">
+            L'interface pensée pour le plongeur.
+          </h2>
+          <p className="text-palier-muted text-center mb-16 max-w-xl mx-auto">
+            Sombre, lisible, épurée. Palier ne vous distrait pas — il capture.
+          </p>
+
+          <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none -mx-6 px-6 md:overflow-visible md:grid md:grid-cols-4 md:mx-0 md:px-0">
+            {SCREENS.map(s => (
+              <div
+                key={s.label}
+                className="flex-none snap-center w-48 md:w-auto flex flex-col items-center gap-4"
+              >
+                <div className="w-48 h-80 rounded-3xl border border-palier-cyan/20 bg-palier-navy flex flex-col overflow-hidden">
+                  {/* Screen header notch */}
+                  <div className="h-1 w-16 rounded-full bg-palier-navy mx-auto mt-3" />
+                  <div className="flex-1 p-4 flex flex-col gap-3">
+                    <div className="h-4 w-24 rounded bg-palier-ivory/80" />
+                    <div className="h-3 w-16 rounded bg-palier-muted/50" />
+                    <div
+                      className="flex-1 rounded-lg mt-2"
+                      style={{ background: s.accent }}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </div>
+                <span className="text-palier-muted text-xs text-center">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA FINAL ── */}
+      <section className="py-24 bg-palier-coral">
+        <div className="max-w-2xl mx-auto px-6 text-center flex flex-col items-center gap-8">
+          <h2 className="font-display italic text-4xl md:text-5xl text-palier-ivory leading-tight">
+            Commence ton logbook aujourd'hui.
+          </h2>
+          <p className="text-palier-ivory/80 text-lg">
+            Gratuit. Sans abonnement. Toujours avec toi.
+          </p>
+          <PlayStoreBadge variant="dark" />
         </div>
       </section>
     </main>
