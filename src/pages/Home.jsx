@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import DiveCurve from '../components/DiveCurve'
+import logo from '../assets/logo.png'
+import screen1 from '../assets/ecrant 1.jpeg'
+import screen2 from '../assets/ecrant 2.jpeg'
+import screen3 from '../assets/ecrant 3.jpeg'
+import screen4 from '../assets/ecrant 4.jpeg'
+import screen5 from '../assets/ecrant 5.jpeg'
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.palier.app'
 
@@ -145,248 +151,23 @@ function PhoneFrame({ children, reversed = false }) {
 // ── Screen Mockups ───────────────────────────────────────────────────────────
 
 function ScreenDives() {
-  return (
-    <div style={{ padding: '10px 12px 14px', fontFamily: 'Inter, sans-serif' }}>
-      <h3 style={{ fontFamily: '"Cormorant Garamond",serif', fontStyle: 'italic', fontSize: 17, color: C.ivory, margin: '2px 0 10px' }}>
-        Mes plongées
-      </h3>
-
-      {/* Stats row */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 8 }}>
-        {[['PLONGÉES', '12'], ['CUMULÉ', '5h30'], ['MAX', '50m']].map(([l, v]) => (
-          <div key={l} style={{ flex: 1, background: C.surface, borderRadius: 9, padding: '5px 3px', textAlign: 'center' }}>
-            <div style={{ fontSize: 6, color: C.muted, letterSpacing: '0.12em', marginBottom: 2 }}>{l}</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: C.ivory }}>{v}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Filters */}
-      <div style={{ display: 'flex', gap: 3, marginBottom: 9, overflow: 'hidden' }}>
-        {['Tout', 'Mer', 'Lac', '3 derniers mois'].map((f, i) => (
-          <span key={f} style={{
-            fontSize: 7.5, padding: '2px 7px', borderRadius: 10,
-            background: i === 0 ? C.coral : C.surface,
-            color: i === 0 ? '#fff' : C.muted,
-            whiteSpace: 'nowrap', flexShrink: 0,
-          }}>{f}</span>
-        ))}
-      </div>
-
-      {/* Dive entries */}
-      {[
-        { num: '001', site: 'Gk',        date: '9 JUIN 2026', d: '50m', t: '99min' },
-        { num: '002', site: 'Marseille', date: '2 JUIN 2026', d: '32m', t: '45min' },
-      ].map(({ num, site, date, d, t }) => (
-        <div key={num} style={{
-          background: C.surface, borderRadius: 10, padding: '7px 9px',
-          marginBottom: 5, display: 'flex', alignItems: 'center',
-        }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 6.5, color: C.muted }}>N° {num}</div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: C.ivory }}>{site}</div>
-            <div style={{ fontSize: 7, color: C.muted }}>{date}</div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 10, color: C.coral, fontWeight: 600 }}>{d} · {t}</div>
-            <span style={{
-              fontSize: 7, color: C.cyan, border: `1px solid ${C.cyan}`,
-              borderRadius: 3, padding: '1px 4px', display: 'inline-block', marginTop: 2,
-            }}>LOISIR</span>
-          </div>
-        </div>
-      ))}
-
-      {/* FAB */}
-      <div style={{
-        width: 30, height: 30, borderRadius: '50%', background: C.coral,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        marginLeft: 'auto', marginTop: 6,
-        boxShadow: `0 4px 14px rgba(232,132,90,0.5)`,
-        fontSize: 18, color: '#fff', lineHeight: 1,
-      }}>+</div>
-    </div>
-  )
+  return <img src={screen1} alt="Écran journal de plongées" style={{ width: '100%', display: 'block' }} />
 }
 
 function ScreenMap() {
-  return (
-    <div style={{ fontFamily: 'Inter, sans-serif' }}>
-      <div style={{ padding: '10px 12px 6px' }}>
-        <h3 style={{ fontFamily: '"Cormorant Garamond",serif', fontStyle: 'italic', fontSize: 17, color: C.ivory, margin: 0 }}>
-          Carte
-        </h3>
-      </div>
-
-      {/* Map tile */}
-      <div style={{
-        margin: '0 8px', height: 185, borderRadius: 14, overflow: 'hidden',
-        background: '#0A2038', position: 'relative',
-      }}>
-        {/* Pseudo-carte : grille + trait de côte */}
-        <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.28 }}>
-          {[40, 80, 120, 160].map(y => <line key={y} x1="0" y1={y} x2="220" y2={y} stroke={C.muted} strokeWidth="0.5" />)}
-          {[44, 88, 132, 176].map(x => <line key={x} x1={x} y1="0" x2={x} y2="220" stroke={C.muted} strokeWidth="0.5" />)}
-          <path d="M0,65 Q35,50 72,80 Q110,110 155,90 Q180,80 220,100"
-            stroke={C.muted} strokeWidth="1.5" fill="none" strokeDasharray="5,3" />
-        </svg>
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(130deg, rgba(0,100,200,0.22) 0%, transparent 55%)',
-        }} />
-        {/* Markers avec pulse */}
-        <div className="map-marker" style={{ position: 'absolute', top: '36%', left: '35%' }}>
-          <div style={{ width: 11, height: 11, borderRadius: '50%', background: C.coral }} />
-        </div>
-        <div className="map-marker" style={{ position: 'absolute', top: '58%', left: '60%' }}>
-          <div style={{ width: 11, height: 11, borderRadius: '50%', background: C.coral, animationDelay: '1.1s' }} />
-        </div>
-      </div>
-
-      {/* Bottom sheet météo */}
-      <div style={{ margin: '6px 8px 10px', background: C.surface, borderRadius: 12, padding: '9px 10px' }}>
-        {/* Onglets temporels */}
-        <div style={{ display: 'flex', gap: 3, marginBottom: 7 }}>
-          {['Maintenant', "Aujourd'hui", 'Demain'].map((t, i) => (
-            <span key={t} style={{
-              fontSize: 7.5, padding: '2px 5px', borderRadius: 8,
-              background: i === 0 ? C.coral : 'transparent',
-              color: i === 0 ? '#fff' : C.muted,
-              border: i !== 0 ? `1px solid rgba(107,125,142,0.22)` : 'none',
-            }}>{t}</span>
-          ))}
-        </div>
-        {/* Données météo */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 2 }}>
-          {[['🌡', '24°', 'TEMP'], ['💨', '10 km/h', 'VENT'], ['🌊', '0.1 m', 'VAGUES']].map(([ic, v, l]) => (
-            <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 12 }}>{ic}</div>
-              <div style={{ fontSize: 9, color: C.ivory, fontWeight: 600 }}>{v}</div>
-              <div style={{ fontSize: 6.5, color: C.muted, letterSpacing: '0.08em' }}>{l}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+  return <img src={screen2} alt="Écran carte des spots" style={{ width: '100%', display: 'block' }} />
 }
 
 function ScreenStats() {
-  return (
-    <div style={{ padding: '10px 12px 14px', fontFamily: 'Inter, sans-serif' }}>
-      <h3 style={{ fontFamily: '"Cormorant Garamond",serif', fontStyle: 'italic', fontSize: 17, color: C.ivory, margin: '2px 0 9px' }}>
-        Stats
-      </h3>
-
-      {/* KPIs 2×2 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, marginBottom: 8 }}>
-        {[['PLONGÉES', '12'], ['CUMULÉ', '5h30'], ['MAX', '50m'], ['MOY', '32m']].map(([l, v]) => (
-          <div key={l} style={{ background: C.surface, borderRadius: 8, padding: '5px 7px' }}>
-            <div style={{ fontSize: 6, color: C.muted, letterSpacing: '0.1em', marginBottom: 2 }}>{l}</div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: C.ivory }}>{v}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Navigation mois */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
-        <span style={{ color: C.muted, fontSize: 12, padding: '0 4px' }}>‹</span>
-        <span style={{ fontSize: 10, color: C.ivory, fontWeight: 500 }}>juin 2026</span>
-        <span style={{ color: C.muted, fontSize: 12, padding: '0 4px' }}>›</span>
-      </div>
-
-      {/* Scatter plot SVG */}
-      <div style={{ background: C.surface, borderRadius: 10, padding: '8px 6px 5px', marginBottom: 8 }}>
-        <svg viewBox="0 0 190 78" width="100%" aria-label="Courbe de profondeur juin 2026">
-          {[20, 42, 64].map(y => <line key={y} x1="18" y1={y} x2="188" y2={y} stroke={C.border} strokeWidth="0.7" />)}
-          {[['0m', 3, 20], ['25m', 3, 42], ['50m', 3, 64]].map(([l, x, y]) => (
-            <text key={l} x={x} y={y + 3} fontSize="5.5" fill={C.muted}>{l}</text>
-          ))}
-          {/* Points de données — y plus élevé = plus profond */}
-          {[[32,42],[55,30],[80,53],[108,36],[135,63],[158,40]].map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r={i === 4 ? 5.5 : 3.5}
-              fill={i === 4 ? C.coral : C.card}
-              stroke={i === 4 ? C.coral : C.muted}
-              strokeWidth="1.5"
-            />
-          ))}
-          <text x="135" y="75" fontSize="6" fill={C.coral} textAnchor="middle">-50m</text>
-        </svg>
-      </div>
-
-      {/* Records */}
-      <div style={{ fontSize: 7.5, color: C.muted, letterSpacing: '0.1em', marginBottom: 4 }}>RECORDS</div>
-      <div style={{ display: 'flex', gap: 4 }}>
-        {[['+ PROFONDE', '50m · Gk'], ['+ LONGUE', '99min · Gk']].map(([l, v]) => (
-          <div key={l} style={{ flex: 1, background: C.surface, borderRadius: 7, padding: '4px 6px' }}>
-            <div style={{ fontSize: 6.5, color: C.muted, letterSpacing: '0.07em' }}>{l}</div>
-            <div style={{ fontSize: 9, color: C.ivory, fontWeight: 600, marginTop: 1 }}>{v}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <img src={screen3} alt="Écran statistiques" style={{ width: '100%', display: 'block' }} />
 }
 
 function ScreenKit() {
-  return (
-    <div style={{ padding: '10px 12px 14px', fontFamily: 'Inter, sans-serif' }}>
-      <h3 style={{ fontFamily: '"Cormorant Garamond",serif', fontStyle: 'italic', fontSize: 17, color: C.ivory, margin: '2px 0 14px' }}>
-        Kit
-      </h3>
-      {['MES PIÈCES', 'MES CONFIGURATIONS', 'MES CONTACTS', 'MES ÉQUIPES'].map(title => (
-        <div key={title} style={{ marginBottom: 11 }}>
-          <div style={{ fontSize: 7, color: C.muted, letterSpacing: '0.12em', marginBottom: 5 }}>{title}</div>
-          <div style={{
-            borderRadius: 9, padding: '7px 10px',
-            border: `1.5px dashed rgba(107,125,142,0.28)`,
-            display: 'flex', alignItems: 'center', gap: 7,
-          }}>
-            <span style={{ color: C.coral, fontSize: 14, lineHeight: 1, fontWeight: 300 }}>+</span>
-            <span style={{ color: C.muted, fontSize: 8.5 }}>Ajouter</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
+  return <img src={screen4} alt="Écran gestion du kit" style={{ width: '100%', display: 'block' }} />
 }
 
 function ScreenProfile() {
-  return (
-    <div style={{ padding: '10px 12px 14px', fontFamily: 'Inter, sans-serif' }}>
-      <h3 style={{ fontFamily: '"Cormorant Garamond",serif', fontStyle: 'italic', fontSize: 17, color: C.ivory, margin: '2px 0 12px' }}>
-        Profil
-      </h3>
-      {/* Avatar cerclé corail */}
-      <div style={{ textAlign: 'center', marginBottom: 14 }}>
-        <div style={{
-          width: 52, height: 52, borderRadius: '50%', background: C.surface,
-          border: `2.5px solid ${C.coral}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          margin: '0 auto 7px', fontSize: 16, fontWeight: 700, color: C.ivory,
-        }}>JK</div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: C.ivory, marginBottom: 2 }}>Jordan K.</div>
-        <div style={{ fontSize: 8.5, color: C.muted }}>Plongeur depuis 2020</div>
-      </div>
-      {/* Certification */}
-      <div style={{ background: C.surface, borderRadius: 9, padding: '7px 9px', marginBottom: 8 }}>
-        <div style={{ fontSize: 6.5, color: C.muted, letterSpacing: '0.1em', marginBottom: 3 }}>CERTIFICATION</div>
-        <div style={{ fontSize: 11, color: C.ivory, fontWeight: 600 }}>DJFJJD</div>
-        <div style={{ fontSize: 8, color: C.muted }}>Niveau 2 · 2022</div>
-      </div>
-      {/* Préférences */}
-      {[['Mode sombre', '●'], ['Langue', 'FR']].map(([label, val]) => (
-        <div key={label} style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '5px 0', borderBottom: `1px solid ${C.border}`,
-        }}>
-          <span style={{ fontSize: 9.5, color: C.ivory }}>{label}</span>
-          <span style={{ fontSize: 9.5, color: C.coral, fontWeight: 600 }}>{val}</span>
-        </div>
-      ))}
-      <div style={{ fontSize: 7.5, color: C.muted, textAlign: 'center', marginTop: 9 }}>v1.0.0</div>
-    </div>
-  )
+  return <img src={screen5} alt="Écran profil" style={{ width: '100%', display: 'block' }} />
 }
 
 // ── Features data ─────────────────────────────────────────────────────────────
@@ -475,11 +256,9 @@ function HeroSection() {
             <PlayStoreBadge />
           </div>
 
-          {/* Mockup téléphone */}
-          <div className="ph-hero-phone">
-            <PhoneFrame>
-              <ScreenDives />
-            </PhoneFrame>
+          {/* Logo hero */}
+          <div className="ph-hero-phone" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={logo} alt="Palier" style={{ width: 280, height: 280, objectFit: 'contain', mixBlendMode: 'screen' }} />
           </div>
         </div>
       </div>

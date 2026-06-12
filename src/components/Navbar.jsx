@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import logo from '../assets/logo.png'
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.palier.app'
 
