@@ -48,8 +48,8 @@ export default function DiveCurve({ className = '' }) {
           C920,60 960,20 1050,18
           C1100,16 1150,18 1200,18
         "
-        stroke="#00D4FF"
-        strokeOpacity="0.45"
+        stroke="#5FBFAE"
+        strokeOpacity="0.38"
         strokeWidth="2.5"
         fill="none"
         strokeLinecap="round"
