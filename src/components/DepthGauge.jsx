@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { depthAt, scrollProgress, MAX_DEPTH } from '../lib/depth'
+import { scrollProgress, MAX_DEPTH } from '../lib/depth'
 
 // Profondimètre HUD : rail vertical gradué à droite (desktop) et
 // pastille de profondeur (mobile). Lié au scroll, mis à jour via
 // refs DOM directes pour rester à 60 fps sans re-render React.
+// La boule suit la PROGRESSION du scroll (toujours vers le bas),
+// tandis que le texte affiche la profondeur réelle (avec remontée finale).
 export default function DepthGauge() {
   const readoutRef = useRef(null)
   const chipRef = useRef(null)
@@ -13,12 +15,14 @@ export default function DepthGauge() {
     let raf = null
     const update = () => {
       raf = null
-      const depth = depthAt(scrollProgress())
+      const progress = scrollProgress()
+      // Profondeur linéaire 0 → MAX_DEPTH, toujours croissante avec le scroll
+      const depth = progress * MAX_DEPTH
       const label = `−${depth.toFixed(1)} M`
       if (readoutRef.current) readoutRef.current.textContent = label
       if (chipRef.current) chipRef.current.textContent = label
       if (needleRef.current) {
-        needleRef.current.style.top = `${(depth / MAX_DEPTH) * 100}%`
+        needleRef.current.style.top = `${progress * 100}%`
       }
     }
     const onScroll = () => {
@@ -78,7 +82,7 @@ export default function DepthGauge() {
 
         <div
           ref={readoutRef}
-          className="font-mono text-[11px] tracking-[0.15em] text-palier-cyan border border-palier-ivory/15 bg-palier-navy/60 backdrop-blur-sm px-2.5 py-1.5 rounded"
+          className="font-mono text-[11px] tracking-[0.15em] text-palier-cyan border border-palier-ivory/15 bg-palier-navy/60 backdrop-blur-sm py-1.5 rounded w-[96px] text-center"
         >
           −0.0 M
         </div>
@@ -87,7 +91,7 @@ export default function DepthGauge() {
       {/* Pastille mobile */}
       <div
         ref={chipRef}
-        className="lg:hidden fixed bottom-4 right-4 z-40 font-mono text-[10px] tracking-[0.15em] text-palier-cyan border border-palier-ivory/15 bg-palier-navy/70 backdrop-blur-sm px-2.5 py-1.5 rounded pointer-events-none select-none"
+        className="lg:hidden fixed bottom-4 right-4 z-40 font-mono text-[10px] tracking-[0.15em] text-palier-cyan border border-palier-ivory/15 bg-palier-navy/70 backdrop-blur-sm py-1.5 rounded w-[96px] text-center pointer-events-none select-none"
         aria-hidden="true"
       >
         −0.0 M

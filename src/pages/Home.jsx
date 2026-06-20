@@ -143,15 +143,6 @@ function PhoneShowcase({ src, alt, accent, floatDelay = 0 }) {
       >
         <div className="relative rounded-[35px] overflow-hidden">
           <img src={src} alt={alt} className="w-full block" loading="lazy" />
-          {/* Reflet d'écran */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.07) 48%, transparent 62%)',
-            }}
-            aria-hidden="true"
-          />
         </div>
       </div>
     </div>
